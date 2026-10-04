@@ -56,7 +56,7 @@ const InteractiveDemo = ({
               {outputs.map((output) => (
                 <div key={output.name} className="output-display">
                   <span className="output-label">{output.label || output.name}</span>
-                  <span className="output-value">
+                  <span className={`output-value ${output.value ? 'high' : 'low'}`}>
                     {output.value !== undefined ? (output.value ? '1' : '0') : '-'}
                   </span>
                 </div>
@@ -100,8 +100,8 @@ const InteractiveDemo = ({
 
       <style jsx>{`
         .interactive-demo {
-          background: var(--bg-surface);
-          border: 1px solid var(--border-color);
+          background: var(--bg-medium);
+          border: 1px solid var(--color-border);
           border-radius: 12px;
           padding: 20px;
           margin-bottom: 20px;
@@ -126,7 +126,7 @@ const InteractiveDemo = ({
         .input-section h4,
         .output-section h4,
         .truth-table-section h4 {
-          color: #93c5fd;
+          color: var(--accent-primary);
           margin-bottom: 12px;
         }
 
@@ -146,7 +146,7 @@ const InteractiveDemo = ({
 
         .input-label {
           color: var(--text-primary);
-          font-weight: 500;
+          font-weight: 600;
         }
 
         .toggle-switch {
@@ -158,17 +158,24 @@ const InteractiveDemo = ({
 
         .toggle-switch input[type='checkbox'] {
           width: 50px;
-          height: 24px;
+          height: 26px;
           appearance: none;
-          background: var(--toggle-bg-off);
-          border-radius: 12px;
+          background: var(--wire-off);
+          border: 2px solid var(--wire-off);
+          border-radius: 13px;
           position: relative;
           cursor: pointer;
-          transition: background 0.3s ease;
+          transition: all 0.3s ease;
+        }
+
+        .toggle-switch input[type='checkbox']:hover {
+          transform: scale(1.05);
         }
 
         .toggle-switch input[type='checkbox']:checked {
-          background: var(--toggle-bg-on);
+          background: var(--wire-on);
+          border-color: var(--wire-on);
+          box-shadow: 0 0 12px rgba(5, 150, 105, 0.4);
         }
 
         .toggle-switch input[type='checkbox']::before {
@@ -176,15 +183,16 @@ const InteractiveDemo = ({
           position: absolute;
           width: 18px;
           height: 18px;
-          background: white;
+          background: #ffffff;
           border-radius: 50%;
-          top: 3px;
-          left: 3px;
+          top: 2px;
+          left: 2px;
           transition: transform 0.3s ease;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .toggle-switch input[type='checkbox']:checked::before {
-          transform: translateX(26px);
+          transform: translateX(24px);
         }
 
         .toggle-value {
@@ -200,14 +208,14 @@ const InteractiveDemo = ({
           align-items: center;
           gap: 8px;
           padding: 12px;
-          background: rgba(99, 102, 241, 0.1);
-          border: 1px solid rgba(99, 102, 241, 0.3);
+          background: var(--bg-light);
+          border: 1px solid var(--color-border);
           border-radius: 8px;
         }
 
         .output-label {
           color: var(--text-primary);
-          font-weight: 500;
+          font-weight: 600;
         }
 
         .output-value {
@@ -217,6 +225,10 @@ const InteractiveDemo = ({
           font-size: 1.2rem;
         }
 
+        .output-value.high {
+          color: var(--accent-primary);
+        }
+
         .truth-table {
           overflow-x: auto;
         }
@@ -224,7 +236,7 @@ const InteractiveDemo = ({
         .truth-table table {
           width: 100%;
           border-collapse: collapse;
-          background: var(--bg-elevated);
+          background: var(--bg-light);
           border-radius: 8px;
           overflow: hidden;
         }
@@ -233,18 +245,18 @@ const InteractiveDemo = ({
         .truth-table td {
           padding: 12px;
           text-align: center;
-          border: 1px solid var(--border-color);
+          border: 1px solid var(--color-border);
           color: var(--text-primary);
         }
 
         .truth-table th {
-          background: var(--accent-purple-bg);
-          color: var(--accent-purple-text);
-          font-weight: 600;
+          background: var(--bg-dark);
+          color: var(--accent-primary);
+          font-weight: 700;
         }
 
         .truth-table tr:hover {
-          background: rgba(99, 102, 241, 0.05);
+          background: var(--bg-medium);
         }
       `}</style>
     </div>
